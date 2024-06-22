@@ -1,33 +1,35 @@
 const db = require("../db/db");
 
-const index = (req, res) => {
-  const sql = "SELECT * FROM productos";
-
-  db.query(sql, (error, rows) => {
-    if (error) {
-      return res.status(500).json({ error: "Intente mas tarde" });
-    }
+async function getAll(req, res) {
+  try {
+    const sql = "SELECT * FROM movies";
+    const [rows, fields] = await db.promise().query(sql);
 
     res.json(rows);
-  });
+  } catch (error) {
+    console.error("Error al obtener las películas:", error);
+    res.status(500).json({ error: "Intente más tarde" });
+  }
 };
 
-const show = (req, res) => {
+
+async function getOne(req, res) {
   const { id } = req.params;
 
-  const sql = "SELECT * FROM productos WHERE id = ?";
-  db.query(sql, [id], (error, rows) => {
-    if (error) {
-      return res.status(500).json({ error: "Intente mas tarde" });
-    }
+  try {
+    const sql = "SELECT * FROM movies WHERE MovieID = ?";
+    const [rows, fields] = await db.promise().query(sql, [id]);
 
-    if (rows.length == 0) {
-      return res.status(404).json({ error: "No existe el producto" });
+    if (rows.length === 0) {
+      return res.status(404).json({ error: "No existe la película" });
     }
 
     res.json(rows[0]);
-  });
-};
+  } catch (error) {
+    console.error("Error al obtener la película:", error);
+    res.status(500).json({ error: "Intente más tarde" });
+  }
+}
 
 const store = (req, res) => {
   const { nombre, stock, precio } = req.body;
@@ -83,8 +85,8 @@ const destroy = (req, res) => {
 };
 
 module.exports = {
-  index,
-  show,
+  getAll,
+  getOne,
   store,
   update,
   destroy,

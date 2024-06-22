@@ -10,11 +10,11 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+const moviesRouter = require("./routes/movies.router");
+app.use("/movies", moviesRouter);
 
-// const productosRouter = require("./routes/productos.router");
-// app.use("/productos", productosRouter);
-
-app.use("/productos", require("./routes/productos.router"));
+const categoriesRouter = require("./routes/categories.router");
+app.use("/categories", categoriesRouter);
 
 app.get("/", (req, res) => {
   res.send("Hola desde Express!!");
@@ -30,9 +30,9 @@ app.get("/frutas", (req, res) => {
   res.sendFile(path.join(__dirname, "frutas.json"));
 });
 
-app.get("/productos/:id", (req, res) => {
+app.get("/movies/:id", (req, res) => {
   console.log(req.params.id);
-  res.send("Producto: " + req.params.id);
+  res.send("Película: " + req.params.id);
 });
 
 const PORT = process.env.PORT || 3001;
