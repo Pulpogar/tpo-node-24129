@@ -1,35 +1,60 @@
 const db = require("../db/db");
+const moviesService = require('../services/movies.service');
 
-async function getAll(req, res) {
+const getAll = async (req, res) => {
   try {
-    const sql = "SELECT * FROM movies";
-    const [rows, fields] = await db.promise().query(sql);
-
-    res.json(rows);
+    const movies = await moviesService.getAllMovies();
+    res.json(movies);
   } catch (error) {
     console.error("Error al obtener las películas:", error);
-    res.status(500).json({ error: "Intente más tarde" });
+    res.status(500).json({ error: "Ocurrió un error al intentar obtener las películas." });
   }
 };
 
-
-async function getOne(req, res) {
+const getOne = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const sql = "SELECT * FROM movies WHERE MovieID = ?";
-    const [rows, fields] = await db.promise().query(sql, [id]);
-
-    if (rows.length === 0) {
-      return res.status(404).json({ error: "No existe la película" });
+    // Validar que el ID sea un número entero válido
+    if (!Number.isInteger(Number(id))) {
+      return res.status(400).json({ error: "El ID de la película debe ser un número entero válido." });
     }
 
-    res.json(rows[0]);
+    const movie = await moviesService.getMovieById(id);
+
+    if (!movie) {
+      return res.status(404).json({ error: "No se encontró ninguna película con ese ID." });
+    }
+
+    res.json(movie);
   } catch (error) {
     console.error("Error al obtener la película:", error);
-    res.status(500).json({ error: "Intente más tarde" });
+    res.status(500).json({ error: "Ocurrió un error al intentar obtener la película." });
   }
-}
+};
+
+const deleteOne = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    // Validar que el ID sea un número entero válido
+    if (!Number.isInteger(Number(id))) {
+      return res.status(400).json({ error: "El ID de la película debe ser un número entero válido." });
+    }
+
+    const isDeleted = await moviesService.deleteMovieById(id);
+
+    if (!isDeleted) {
+      return res.status(404).json({ error: "No se encontró ninguna película con ese ID." });
+    }
+
+    res.json({ mensaje: `Película con ID ${id} eliminada correctamente.` });
+  } catch (error) {
+    console.error("Error al eliminar la película:", error);
+    res.status(500).json({ error: "Ocurrió un error al intentar eliminar la película." });
+  }
+};
+
 
 const store = (req, res) => {
   const { nombre, stock, precio } = req.body;
@@ -67,27 +92,10 @@ const update = (req, res) => {
   });
 };
 
-const destroy = (req, res) => {
-  const { id } = req.params;
-
-  const sql = "DELETE FROM productos WHERE id = ?";
-  db.query(sql, [id], (error, result) => {
-    if (error) {
-      return res.status(500).json({ error: "Intente mas tarde" });
-    }
-
-    if (result.affectedRows == 0) {
-      return res.status(404).json({ error: "No existe el producto" });
-    }
-
-    res.json({ mensaje: `Producto ${id} borrado` });
-  });
-};
-
 module.exports = {
   getAll,
   getOne,
   store,
   update,
-  destroy,
+  deleteOne,
 };

@@ -1,22 +1,13 @@
-const mysql = require("mysql2");
+const mysql = require('mysql2');
 
-const connection = mysql.createConnection({
-  // host: process.env.DB_HOST,
-  // user: process.env.DB_USER,
-  // password: process.env.DB_PASS,
-  // database: process.env.DB_NAME,
+const dbConfig = {
   host: 'localhost',
   user: 'root',
   password: 'sasa',
-  database: 'moviesdb',
-});
+  database: 'moviesdb'
+};
 
-connection.connect((error) => {
-  if (error) {
-    return console.error(error);
-  }
-
-  console.log("Conectado");
-});
+// Crear la conexión a la base de datos con promesas
+const connection = mysql.createPool(dbConfig).promise();
 
 module.exports = connection;
