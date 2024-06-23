@@ -18,8 +18,16 @@ const deleteMovieById = async (movieId) => {
   return result.affectedRows > 0;
 };
 
+const createMovie = async (movieData) => {
+  const sql = "INSERT INTO movies (title, director, release_year, genre) VALUES (?, ?, ?, ?)";
+  const { title, director, release_year, genre } = movieData;
+  const [result] = await db.query(sql, [title, director, release_year, genre]);
+  return result.insertId;
+};
+
 module.exports = {
   getAllMovies,
   getMovieById,
   deleteMovieById,
+  createMovie,
 };
