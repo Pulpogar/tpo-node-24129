@@ -1,7 +1,7 @@
 const db = require("../db/db");
 const categoriesService = require('../services/categories.service');
 
-const   getAllCategories = async (req, res) => {
+const getAllCategories = async (req, res) => {
   try {
     const movies = await categoriesService.getAllCategories();
     res.json(movies);
@@ -66,27 +66,6 @@ const createCategory = (req, res) => {
     }
 
     const producto = { ...req.body, id: result.insertId };
-
-    res.json(producto);
-  });
-};
-
-const update = (req, res) => {
-  const { id } = req.params;
-  const { nombre, stock, precio } = req.body;
-
-  const sql =
-    "UPDATE productos SET nombre = ?, stock = ?, precio = ? WHERE id = ?";
-  db.query(sql, [nombre, stock, precio, id], (error, result) => {
-    if (error) {
-      return res.status(500).json({ error: "Intente mas tarde" });
-    }
-
-    if (result.affectedRows == 0) {
-      return res.status(404).json({ error: "No existe el producto" });
-    }
-
-    const producto = { ...req.body, ...req.params };
 
     res.json(producto);
   });

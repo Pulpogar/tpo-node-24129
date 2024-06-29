@@ -7,7 +7,7 @@ const dbConfig = {
   database: 'moviesdb'
 };
 
-// Crear la conexión a la base de datos con promesas
+// Creo la conexión a la base de datos con promesas
 const connection = mysql.createPool(dbConfig).promise();
 
 module.exports = connection;

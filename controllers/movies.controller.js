@@ -1,7 +1,7 @@
 const db = require("../db/db");
 const moviesService = require('../services/movies.service');
 
-const getAll = async (req, res) => {
+const getAllMovies = async (req, res) => {
   try {
     const movies = await moviesService.getAllMovies();
     res.json(movies);
@@ -11,7 +11,7 @@ const getAll = async (req, res) => {
   }
 };
 
-const getOne = async (req, res) => {
+const getMovieById = async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -33,7 +33,7 @@ const getOne = async (req, res) => {
   }
 };
 
-const deleteOne = async (req, res) => {
+const deleteMovieById = async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -56,7 +56,7 @@ const deleteOne = async (req, res) => {
 };
 
 
-const store = (req, res) => {
+const createMovie = (req, res) => {
   const { nombre, stock, precio } = req.body;
 
   const sql = "INSERT INTO productos (nombre, precio, stock) VALUES (?, ?, ?)";
@@ -71,7 +71,7 @@ const store = (req, res) => {
   });
 };
 
-const update = (req, res) => {
+const updateMovie = (req, res) => {
   const { id } = req.params;
   const { nombre, stock, precio } = req.body;
 
@@ -93,9 +93,9 @@ const update = (req, res) => {
 };
 
 module.exports = {
-  getAll,
-  getOne,
-  store,
-  update,
-  deleteOne,
+  getAllMovies,
+  getMovieById,
+  createMovie,
+  updateMovie,
+  deleteMovieById,
 };

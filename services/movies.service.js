@@ -19,11 +19,19 @@ const deleteMovieById = async (movieId) => {
 };
 
 const createMovie = async (movieData) => {
-  const sql = "INSERT INTO movies (title, director, release_year, genre) VALUES (?, ?, ?, ?)";
+  const sql = "INSERT INTO movies (Title, MovieImage, Synopsis, ReleaseYear, CategoryID, DirectorID) VALUES (?, ?, ?, ?, ?, ?)";
   const { title, director, release_year, genre } = movieData;
   const [result] = await db.query(sql, [title, director, release_year, genre]);
   return result.insertId;
 };
+
+const updateMovie = async (movieData) => {
+  const sql = "UPDATE movies SET Title = ?, MovieImage = ?, Synopsis = ?, ReleaseYear = ?, CategoryID = ?, DirectorID = ?) VALUES (?, ?, ?, ?, ?, ?)";
+  const { title, director, release_year, genre } = movieData;
+  const [result] = await db.query(sql, [title, director, release_year, genre]);
+  return result.insertId;
+};
+"UPDATE productos SET nombre = ?, stock = ?, precio = ? WHERE id = ?";
 
 module.exports = {
   getAllMovies,

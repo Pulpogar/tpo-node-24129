@@ -16,6 +16,9 @@ app.use("/movies", moviesRouter);
 const categoriesRouter = require("./routes/categories.router");
 app.use("/categories", categoriesRouter);
 
+const directorRouter = require("./routes/directors.router");
+app.use("/directors", directorRouter);
+
 app.get("/", (req, res) => {
   res.send("Hola desde Express!!");
 });
