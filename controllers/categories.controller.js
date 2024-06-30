@@ -56,19 +56,33 @@ const deleteCategoryById = async (req, res) => {
 };
 
 
-const createCategory = (req, res) => {
-  const { nombre, stock, precio } = req.body;
-
-  const sql = "INSERT INTO productos (nombre, precio, stock) VALUES (?, ?, ?)";
-  db.query(sql, [nombre, precio, stock], (error, result) => {
-    if (error) {
-      return res.status(500).json({ error: "Intente mas tarde" });
+const createCategory = async (req, res) => {
+  const { CategoryName, is_active } = req.body;
+  try {
+    const isCreated = await categoriesService.createCategory(CategoryName, is_active);
+    if (isCreated) {
+      res.json({ mensaje: `Categoría creada exitosamente` });
     }
+  } catch (error) {
+    console.error("Error al crear la categoría:", error);
+    res.status(500).json({ error: "Ocurrió un error al intentar eliminar la categoría." });
+  }
+};
 
-    const producto = { ...req.body, id: result.insertId };
-
-    res.json(producto);
-  });
+const updateCategoryById = async (req, res) => {
+  const { CategoryID, CategoryName, is_active, CreatedAt  } = req.body;
+  try {
+    if (!Number.isInteger(Number(CategoryID))) {
+      return res.status(400).json({ error: "El ID de la categoría debe ser un número entero válido." });
+    }
+    const isUpdated = await categoriesService.updateCategoryById(CategoryID, CategoryName, is_active, CreatedAt);
+    if (isUpdated) {
+      res.json({ mensaje: `Categoría actualizada exitosamente` });
+    }
+  } catch (error) {
+    console.error("Error al actualizar la categoría:", error);
+    res.status(500).json({ error: "Ocurrió un error al intentar actualizar la categoría." });
+  }
 };
 
 module.exports = {
@@ -76,4 +90,5 @@ module.exports = {
   getCategoryById,
   deleteCategoryById,
   createCategory,
+  updateCategoryById
 };

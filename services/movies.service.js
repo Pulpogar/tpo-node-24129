@@ -31,11 +31,12 @@ const updateMovie = async (movieData) => {
   const [result] = await db.query(sql, [title, director, release_year, genre]);
   return result.insertId;
 };
-"UPDATE productos SET nombre = ?, stock = ?, precio = ? WHERE id = ?";
+
 
 module.exports = {
   getAllMovies,
   getMovieById,
   deleteMovieById,
   createMovie,
+  updateMovie
 };

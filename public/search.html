@@ -4,15 +4,15 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>The MovieDB | Inicio</title>
+    <title>The MovieDB | Buscar</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap"
       rel="stylesheet"
     />
     <script src="https://kit.fontawesome.com/2d9869cdb3.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/search.css" />
   </head>
-  <body>
     <header class="header">
       <button class="button">
         <svg
@@ -63,75 +63,29 @@
               />
             </g>
           </g>
-        </svg><br>
+        </svg>
+		<br>
         <ul class="ul">
           <li class="li"><a href="index.html" class="a"><i class="fa-solid fa-couch"></i> Inicio</a></li>
-          <!-- <li class="li"><a href="search.html" class="a"><i class="fa-solid fa-search"></i> Buscar</a></li> -->
+          <li class="li"><a href="search.html" class="a"><i class="fa-solid fa-search"></i> Buscar</a></li>
           <li class="li"><a href="genders.html" class="a"><i class="fa-solid fa-clapperboard"></i> Géneros</a></li>
           <li class="li"><a href="reviews.html" class="a"><i class="fa-solid fa-film"></i> Reviews</a></li>
           <li class="li"><a href="contact.html" class="a"><i class="fa-solid fa-comment-dots"></i> Contacto</a></li>
         </ul>
       </nav>
+      <form id="form">
+        <input id="search" class="search" placeholder="Buscar...">
+      </form>
     </header>
 
-    <div id="modal_container" class="modal-container">
-      <div class="modal"></div>
-      <button id="close">Cerrar</button>
-    </div>
 
-    <div class="iframe-container">
-      <div class="embed-container">
-        <iframe
-          src="https://www.youtube.com/embed/-xDq2iPzTgo"
-          frameborder="0"
-          allow="accelerometer; autoplay=1; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        >
-        </iframe>
-      </div>
-    </div>
-
-    <!-- <div class="filter" id="filter">
-      <label for="filter-opt">Mostrar primero</label>
-      <select id="filter-opt">
-        <option value="popular">Más populares</option>
-        <option value="top_rated">Mejor valoradas</option>
-      </select>
-    </div> -->
-
-    <div class="contenedor" id="contenedor">
-        <script>
-            document.addEventListener('DOMContentLoaded', async () => {
-              try {
-                const response = await fetch('/movies');
-                const movies = await response.json();
-                const moviesList = document.getElementById('contenedor');
-                
-                let pelis = '';
-                movies.forEach(movie => {
-                pelis += `
-					<article class="movie">
-						<img class="card" src="/img/${movie.MovieImage}">
-						<div class="movie-info"><h3>${movie.Title}</h3></div>
-					</article>
-				`;
-                });
-                document.getElementById('contenedor').innerHTML = pelis;
-              } catch (error) {
-                console.error('Error fetching movies:', error);
-              }
-            });
-          </script>
-    </div>
-
-    <!-- <div class="paginacion">
-      <button id="btnAnterior"><i class="fa-solid fa-angle-left"></i></button>
-      <button id="btnSiguiente"><i class="fa-solid fa-angle-right"></i></button>
-    </div> -->
+    <div class="paginacion"><h5 id="resultSearch">Próximos estrenos</h5></div>
+    <div class="contenedor" id="contenedor"></div>
 
     <div include-html="./partials/footer.html"></div>
 
     <script src="js/include-html.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/search.js"></script>
   </body>
-
 </html>
