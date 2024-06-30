@@ -55,46 +55,41 @@ const deleteDirectorById = async (req, res) => {
   }
 };
 
-
-const createDirector = (req, res) => {
-  const { nombre, stock, precio } = req.body;
-
-  const sql = "INSERT INTO directors (nombre, precio, stock) VALUES (?, ?, ?)";
-  db.query(sql, [nombre, precio, stock], (error, result) => {
-    if (error) {
-      return res.status(500).json({ error: "Intente mas tarde" });
+const createDirector = async (req, res) => {
+  const { DirectorName } = req.body;
+  try {
+    const isCreated = await directorsService.createDirector(DirectorName);
+    if (isCreated) {
+      res.json({ mensaje: `Director creado exitosamente` });
     }
-
-    const producto = { ...req.body, id: result.insertId };
-
-    res.json(producto);
-  });
+  } catch (error) {
+    console.error("Error al crear el director:", error);
+    res.status(500).json({ error: "Ocurrió un error al intentar crear el director." });
+  }
 };
 
-const update = (req, res) => {
+const updateDirectorById = async (req, res) => {
   const { id } = req.params;
-  const { nombre, stock, precio } = req.body;
-
-  const sql =
-    "UPDATE directors SET nombre = ?, stock = ?, precio = ? WHERE id = ?";
-  db.query(sql, [nombre, stock, precio, id], (error, result) => {
-    if (error) {
-      return res.status(500).json({ error: "Intente mas tarde" });
+  const { DirectorName } = req.body;
+  try {
+    if (!Number.isInteger(Number(id))) {
+      return res.status(400).json({ error: "El ID del director debe ser un número entero válido." });
     }
-
-    if (result.affectedRows == 0) {
-      return res.status(404).json({ error: "No existe el producto" });
+    const isUpdated = await directorsService.updateDirectorById(id, DirectorName);
+    if (isUpdated) {
+      res.json({ mensaje: `Director actualizado exitosamente` });
     }
-
-    const producto = { ...req.body, ...req.params };
-
-    res.json(producto);
-  });
+  } catch (error) {
+    console.error("Error al actualizar el director:", error);
+    res.status(500).json({ error: "Ocurrió un error al intentar actualizar el director." });
+  }
 };
+
 
 module.exports = {
   getAllDirectors,
   getDirectorById,
   deleteDirectorById,
   createDirector,
+  updateDirectorById
 };

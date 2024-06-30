@@ -18,11 +18,16 @@ const deleteDirectorById = async (directorId) => {
   return result.affectedRows > 0;
 };
 
-const createDirector = async (directorId) => {
-  const sql = "INSERT INTO directors (title, director, release_year, genre) VALUES (?, ?, ?, ?)";
-  const { title, director, release_year, genre } = movieData;
-  const [result] = await db.query(sql, [title, director, release_year, genre]);
+const createDirector= async (DirectorName) => {
+  const sql = "INSERT INTO directors (DirectorName) VALUES (?)";
+  const [result] = await db.query(sql, [DirectorName]);
   return result.insertId;
+};
+
+const updateDirectorById = async (DirectorID, DirectorName) => {
+  const sql = "UPDATE directors SET DirectorName = ?, CreatedAt = NOW() WHERE DirectorID = ?";
+  const [result] = await db.query(sql, [DirectorName, DirectorID]);
+  return result.affectedRows > 0;
 };
 
 module.exports = {
@@ -30,4 +35,5 @@ module.exports = {
   getDirectorById,
   deleteDirectorById,
   createDirector,
+  updateDirectorById
 };

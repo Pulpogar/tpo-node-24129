@@ -70,12 +70,13 @@ const createCategory = async (req, res) => {
 };
 
 const updateCategoryById = async (req, res) => {
-  const { CategoryID, CategoryName, is_active, CreatedAt  } = req.body;
+  const { id } = req.params;
+  const { CategoryName, is_active, CreatedAt  } = req.body;
   try {
-    if (!Number.isInteger(Number(CategoryID))) {
+    if (!Number.isInteger(Number(id))) {
       return res.status(400).json({ error: "El ID de la categoría debe ser un número entero válido." });
     }
-    const isUpdated = await categoriesService.updateCategoryById(CategoryID, CategoryName, is_active, CreatedAt);
+    const isUpdated = await categoriesService.updateCategoryById(id, CategoryName, is_active, CreatedAt);
     if (isUpdated) {
       res.json({ mensaje: `Categoría actualizada exitosamente` });
     }
