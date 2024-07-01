@@ -6,8 +6,8 @@ const getAllDirectors = async (req, res) => {
     const movies = await directorsService.getAllDirectors();
     res.json(movies);
   } catch (error) {
-    console.error("Error al obtener las categorías:", error);
-    res.status(500).json({ error: "Ocurrió un error al intentar obtener las categorías." });
+    console.error("Error al obtener los directores:", error);
+    res.status(500).json({ error: "Ocurrió un error al intentar obtener los directores." });
   }
 };
 
@@ -28,8 +28,8 @@ const getDirectorById = async (req, res) => {
 
     res.json(movie);
   } catch (error) {
-    console.error("Error al obtener la categoría:", error);
-    res.status(500).json({ error: "Ocurrió un error al intentar obtener la categoría." });
+    console.error("Error al obtener el director:", error);
+    res.status(500).json({ error: "Ocurrió un error al intentar obtener el director." });
   }
 };
 
@@ -51,7 +51,7 @@ const deleteDirectorById = async (req, res) => {
     res.json({ mensaje: `Director con ID ${id} eliminada correctamente.` });
   } catch (error) {
     console.error("Error al eliminar el director:", error);
-    res.status(500).json({ error: "Ocurrió un error al intentar eliminar la categoría." });
+    res.status(500).json({ error: "Ocurrió un error al intentar eliminar el director." });
   }
 };
 
