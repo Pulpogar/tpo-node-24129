@@ -72,7 +72,7 @@ const updateDirectorById = async (req, res) => {
   const { id } = req.params;
   const { DirectorName } = req.body;
   try {
-    if (!Number.isInteger(Number(id))) {
+    if (!Number.isInteger(Number(id)) || id == '') {
       return res.status(400).json({ error: "El ID del director debe ser un número entero válido." });
     }
     const isUpdated = await directorsService.updateDirectorById(id, DirectorName);
