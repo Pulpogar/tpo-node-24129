@@ -40,4 +40,4 @@ app.get("/movies/:id", (req, res) => {
 
 const PORT = process.env.PORT || 3001;
 
-app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`http://cyberex.alwaysdata.net:${PORT}`));
