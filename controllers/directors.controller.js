@@ -78,6 +78,8 @@ const updateDirectorById = async (req, res) => {
     const isUpdated = await directorsService.updateDirectorById(id, DirectorName);
     if (isUpdated) {
       res.json({ mensaje: `Director actualizado exitosamente` });
+    } else {
+      res.json({ mensaje: `Error al actualizar` });
     }
   } catch (error) {
     console.error("Error al actualizar el director:", error);
