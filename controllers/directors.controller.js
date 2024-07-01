@@ -48,7 +48,7 @@ const deleteDirectorById = async (req, res) => {
       return res.status(404).json({ error: "No se encontró ningún director con ese ID." });
     }
 
-    res.json({ mensaje: `Director con ID ${id} eliminada correctamente.` });
+    res.json({ mensaje: `Director con ID ${id} eliminado correctamente.` });
   } catch (error) {
     console.error("Error al eliminar el director:", error);
     res.status(500).json({ error: "Ocurrió un error al intentar eliminar el director." });
