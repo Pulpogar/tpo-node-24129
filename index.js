@@ -1,10 +1,16 @@
 require("dotenv").config();
 
+const cors = require('cors');
+const bodyParser = require('body-parser');
 const exp = require("constants");
 const express = require("express");
 const app = express();
 
 const path = require("path");
+
+// Middleware
+app.use(bodyParser.json());
+app.use(cors()); // Habilita CORS para permitir solicitudes desde el frontend independiente
 
 app.use(express.static(path.join(__dirname, "public")));
 
