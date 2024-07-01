@@ -81,6 +81,7 @@ const updateDirectorById = async (req, res) => {
     }
   } catch (error) {
     console.error("Error al actualizar el director:", error);
+    res.status(404).json({ error: "El director con ese ID no existe." });
     res.status(500).json({ error: "Ocurrió un error al intentar actualizar el director." });
   }
 };
