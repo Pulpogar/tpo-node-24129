@@ -34,16 +34,6 @@ app.get("/factura", (req, res) => {
   res.sendFile(path.join(__dirname, "private", "factura.html"));
 });
 
-app.get("/frutas", (req, res) => {
-  console.log(req.query);
-  res.sendFile(path.join(__dirname, "frutas.json"));
-});
-
-app.get("/movies/:id", (req, res) => {
-  console.log(req.params.id);
-  res.send("Película: " + req.params.id);
-});
-
 const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => console.log(`http://cyberex.alwaysdata.net:${PORT}`));
