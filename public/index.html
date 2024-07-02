@@ -88,40 +88,43 @@
       </div>
     </div>
 
-    <div class="iframe-container" id="iframe-container">
-      <script>
-              document.addEventListener('DOMContentLoaded', async () => {
-                try {
-                  const response = await fetch('https://cyberex.alwaysdata.net/movies');
-                  const movies = await response.json();
-                  const moviesList = document.getElementById('iframe-container');
-                  
-                  let pelis = '';
-                  movies.forEach(movie => {
-                  pelis += 
-          `	
-            <div class="row">
-              <div class="col-sm-3">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">${movie.Title}</h5>
-                    <img class="card" src="${movie.MovieImage}" width="100" height="120">
-                    <p class="card-text">${movie.Synopsis}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          `     
-          ;
-                  });
-                  document.getElementById('iframe-container').innerHTML = pelis;
-                } catch (error) {
-                  console.error('Error fetching movies:', error);
-                }
-              });
-            </script>
-  </div>
+    <!-- <div class="filter" id="filter">
+      <label for="filter-opt">Mostrar primero</label>
+      <select id="filter-opt">
+        <option value="popular">Más populares</option>
+        <option value="top_rated">Mejor valoradas</option>
+      </select>
+    </div> -->
 
+    <div class="contenedor" id="contenedor">
+        <script>
+            document.addEventListener('DOMContentLoaded', async () => {
+              try {
+                const response = await fetch('https://cyberex.alwaysdata.net/movies');
+                const movies = await response.json();
+                const moviesList = document.getElementById('contenedor');
+                
+                let pelis = '';
+                movies.forEach(movie => {
+                pelis += `
+					<article class="movie">
+            <img class="card" src="${movie.MovieImage}">						
+						<div class="movie-info"><h3>${movie.Title}</h3></div>
+					</article>
+				`;
+                });
+                document.getElementById('contenedor').innerHTML = pelis;
+              } catch (error) {
+                console.error('Error fetching movies:', error);
+              }
+            });
+          </script>
+    </div>
+
+    <!-- <div class="paginacion">
+      <button id="btnAnterior"><i class="fa-solid fa-angle-left"></i></button>
+      <button id="btnSiguiente"><i class="fa-solid fa-angle-right"></i></button>
+    </div> -->
 
     <div include-html="./partials/footer.html"></div>
 

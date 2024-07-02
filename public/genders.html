@@ -77,57 +77,56 @@
     </header>
     
     <main>
-      <table>
-          <thead>
-              <tr>
-                  <th>Categorías</th>
-                  <th>Directores</th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr>
-                  <td id="tabla1"></td>
-                  <td id="tabla2"></td>
-              </tr>
-          </tbody>
-      </table>
-  
-      <script>
-          document.addEventListener('DOMContentLoaded', async () => {
-              try {
-                  const response1 = await fetch('https://cors-anywhere.herokuapp.com/https://cyberex.alwaysdata.net/categories');
-                  const categories = await response1.json();
-                  const categoriesList = document.getElementById('tabla1');
-  
-                  categories.forEach(category => {
-                      const li = document.createElement('tr');
-                      li.textContent = `(${category.CategoryID}) ${category.CategoryName}`;
-                      categoriesList.appendChild(li);
-                  });
-              } catch (error) {
-                  console.error('Error fetching categories:', error);
-              }
-  
-              try {
-                  const response2 = await fetch('https://cors-anywhere.herokuapp.com/https://cyberex.alwaysdata.net/directors');
-                  const directors = await response2.json();
-                  const directorsList = document.getElementById('tabla2');
-  
-                  directors.forEach(director => {
-                      const li = document.createElement('tr');
-                      li.textContent = `(${director.DirectorID}) ${director.DirectorName}`;
-                      directorsList.appendChild(li);
-                  });
-              } catch (error) {
-                  console.error('Error fetching directors:', error);
-              }
-          });
-      </script>
-  </main>
+        <table>
+            <thead>
+                <tr>
+                    <th>Categorías</th>
+                    <th>Directores</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="tabla1"></td>
+                    <td id="tabla2"></td>
+                </tr>
+            </tbody>
+        </table>
+    
+        <script>
+            document.addEventListener('DOMContentLoaded', async () => {
+                try {
+                    const response1 = await fetch('https://cors-anywhere.herokuapp.com/https://cyberex.alwaysdata.net/categories');
+                    const categories = await response1.json();
+                    const categoriesList = document.getElementById('tabla1');
+    
+                    categories.forEach(category => {
+                        const li = document.createElement('tr');
+                        li.textContent = `(${category.CategoryID}) ${category.CategoryName}`;
+                        categoriesList.appendChild(li);
+                    });
+                } catch (error) {
+                    console.error('Error fetching categories:', error);
+                }
+    
+                try {
+                    const response2 = await fetch('https://cyberex.alwaysdata.net/directors');
+                    const directors = await response2.json();
+                    const directorsList = document.getElementById('tabla2');
+    
+                    directors.forEach(director => {
+                        const li = document.createElement('tr');
+                        li.textContent = `(${director.DirectorID}) ${director.DirectorName}`;
+                        directorsList.appendChild(li);
+                    });
+                } catch (error) {
+                    console.error('Error fetching directors:', error);
+                }
+            });
+        </script>
+    </main>
   </body>
 
   <div include-html="./partials/footer.html"></div>
 
   <script src="js/include-html.js"></script>
-      <script src="js/app.js"></script>
   </html>
