@@ -33,14 +33,11 @@ app.use("/categories", categoriesRouter);
 const directorRouter = require("./routes/directors.router");
 app.use("/directors", directorRouter);
 
-app.get("/", (req, res) => {
-  res.send("Hola desde Express!!");
-});
+app.use("/", moviesRouter);
 
-app.get("/factura", (req, res) => {
-  // Login
-  res.sendFile(path.join(__dirname, "private", "factura.html"));
-});
+// app.get("/", (req, res) => {
+//   res.send("Hola desde Express!!");
+// });
 
 const PORT = process.env.PORT || 3001;
 
