@@ -9,12 +9,20 @@ const app = express();
 const path = require("path");
 
 // Permitir solicitudes desde tu dominio en Vercel
-const corsOptions = {
-  origin: 'https://tpo-front-24129.vercel.app/',
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: false, // Si necesitas permitir credenciales
-  optionsSuccessStatus: 204
-};
+// const corsOptions = {
+//   origin: 'https://tpo-front-24129.vercel.app/',
+//   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//   credentials: false, // Si necesitas permitir credenciales
+//   optionsSuccessStatus: 204
+// };
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-COntrol-Allow-Request-Method');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+  res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+  next();
+}) 
 
 // Middleware
 app.use(bodyParser.json());
