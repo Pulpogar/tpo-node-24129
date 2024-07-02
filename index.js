@@ -8,9 +8,17 @@ const app = express();
 
 const path = require("path");
 
+// Permitir solicitudes desde tu dominio en Vercel
+const corsOptions = {
+  origin: 'https://tpo-front-24129.vercel.app/',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: false, // Si necesitas permitir credenciales
+  optionsSuccessStatus: 204
+};
+
 // Middleware
 app.use(bodyParser.json());
-app.use(cors()); // Habilita CORS para permitir solicitudes desde el frontend independiente
+app.use(cors(corsOptions)); // Habilita CORS para permitir solicitudes desde el frontend independiente
 
 app.use(express.static(path.join(__dirname, "public")));
 
