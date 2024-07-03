@@ -20,8 +20,8 @@ const deleteMovieById = async (movieId) => {
 
 const createMovie = async (movieData) => {
   const sql = "INSERT INTO movies (Title, MovieImage, Synopsis, ReleaseYear, CategoryID, DirectorID) VALUES (?, ?, ?, ?, ?, ?)";
-  const { title, director, release_year, genre } = movieData;
-  const [result] = await db.query(sql, [title, director, release_year, genre]);
+  const { Title, MovieImage, Synopsis, ReleaseYear, CategoryID, DirectorID } = movieData;
+  const [result] = await db.query(sql, [Title, MovieImage, Synopsis, ReleaseYear, CategoryID, DirectorID]);
   return result.insertId;
 };
 

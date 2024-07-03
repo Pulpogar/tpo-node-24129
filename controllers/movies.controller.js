@@ -56,19 +56,17 @@ const deleteMovieById = async (req, res) => {
 };
 
 
-const createMovie = (req, res) => {
-  const { nombre, stock, precio } = req.body;
-
-  const sql = "INSERT INTO productos (nombre, precio, stock) VALUES (?, ?, ?)";
-  db.query(sql, [nombre, precio, stock], (error, result) => {
-    if (error) {
-      return res.status(500).json({ error: "Intente mas tarde" });
+const createMovie = async (req, res) => {
+  const { Title, MovieImage, Synopsis, ReleaseYear, CategoryID, DirectorID } = req.body;
+  try {
+    const isCreated = await categoriesService.createMovie(Title, MovieImage, Synopsis, ReleaseYear, CategoryID, DirectorID);
+    if (isCreated) {
+      res.json({ mensaje: `Película creada exitosamente` });
     }
-
-    const producto = { ...req.body, id: result.insertId };
-
-    res.json(producto);
-  });
+  } catch (error) {
+    console.error("Error al crear la película:", error);
+    res.status(500).json({ error: "Ocurrió un error al intentar crear la categoría." });
+  }
 };
 
 const updateMovie = (req, res) => {
