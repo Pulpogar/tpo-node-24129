@@ -16,7 +16,7 @@ const path = require("path");
 
 // Middleware
 app.use(bodyParser.json());
-app.use(cors(corsOptions)); // Habilita CORS para permitir solicitudes desde el frontend independiente
+app.use(cors()); // Habilita CORS para permitir solicitudes desde el frontend independiente
 
 app.use(express.static(path.join(__dirname, "public")));
 
