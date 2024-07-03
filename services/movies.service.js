@@ -18,9 +18,9 @@ const deleteMovieById = async (movieId) => {
   return result.affectedRows > 0;
 };
 
-const createMovie = async (movieData) => {
+const createMovie = async (Title, MovieImage, Synopsis, ReleaseYear, CategoryID, DirectorID) => {
   const sql = "INSERT INTO movies (Title, MovieImage, Synopsis, ReleaseYear, CategoryID, DirectorID) VALUES (?, ?, ?, ?, ?, ?)";
-  const { Title, MovieImage, Synopsis, ReleaseYear, CategoryID, DirectorID } = movieData;
+  // const { Title, MovieImage, Synopsis, ReleaseYear, CategoryID, DirectorID } = movieData;
   const [result] = await db.query(sql, [Title, MovieImage, Synopsis, ReleaseYear, CategoryID, DirectorID]);
   return result.insertId;
 };
