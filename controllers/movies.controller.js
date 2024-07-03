@@ -59,7 +59,7 @@ const deleteMovieById = async (req, res) => {
 const createMovie = async (req, res) => {
   const { Title, MovieImage, Synopsis, ReleaseYear, CategoryID, DirectorID } = req.body;
   try {
-    const isCreated = await categoriesService.createMovie(Title, MovieImage, Synopsis, ReleaseYear, CategoryID, DirectorID);
+    const isCreated = await moviesService.createMovie(Title, MovieImage, Synopsis, ReleaseYear, CategoryID, DirectorID);
     if (isCreated) {
       res.json({ mensaje: `Película creada exitosamente` });
     }
